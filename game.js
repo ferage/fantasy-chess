@@ -206,7 +206,7 @@ class FantasyChess {
             moveType = 'move';
         } else if (attacks.some(m => m[0] === targetRow && m[1] === targetCol)) {
             moveType = 'attack';
-        } else if (shoots.some(m => m[0] === targetRow && m[1] === targetCol)) {
+        } else if (!piece.hasShot && shoots.some(m => m[0] === targetRow && m[1] === targetCol)) {
             moveType = 'shoot';
         }
         
@@ -439,7 +439,10 @@ class FantasyChess {
             }
         }
         
-        if (pieces.length === 0) return;
+        if (pieces.length === 0) {
+            // No AI pieces left - should have already lost
+            return;
+        }
         
         // Select a random piece with valid moves
         const validMoves = [];
@@ -456,7 +459,14 @@ class FantasyChess {
         }
         
         if (validMoves.length === 0) {
-            this.nextTurn();
+            // No valid moves - pass turn without recursion
+            this.selectedPiece = null;
+            this.updateGameStatus('AI has no valid moves. Turn passed.');
+            // Switch turn manually without calling nextTurn to avoid recursion
+            this.currentPlayer = 'white';
+            document.getElementById('currentPlayer').textContent = 'White\'s Turn';
+            this.resetTurnTimer();
+            this.render();
             return;
         }
         
@@ -494,6 +504,11 @@ class FantasyChess {
         this.updateTimer();
         
         this.turnTimer = setInterval(() => {
+            // Don't count down if AI is thinking
+            if (this.gameMode.startsWith('ai-') && this.currentPlayer === 'black') {
+                return;
+            }
+            
             this.turnTime--;
             this.updateTimer();
             
@@ -523,14 +538,23 @@ class FantasyChess {
         if (this.moveHistory.length === 0) return;
         
         const lastMove = this.moveHistory.pop();
-        const { from, to, piece, captured } = lastMove;
+        const { from, to, piece, captured, moveType } = lastMove;
         
         this.board[from[0]][from[1]] = piece;
         this.board[to[0]][to[1]] = captured;
         piece.row = from[0];
         piece.col = from[1];
         
+        // Restore piece state - if this was the only move, mark as not moved
+        if (!this.moveHistory.some(m => m.piece === piece)) {
+            piece.hasMoved = false;
+        }
+        
+        // Reset shoot status for current turn
+        piece.hasShot = false;
+        
         this.currentPlayer = this.currentPlayer === 'white' ? 'black' : 'white';
+        this.updateGameStatus('Move undone');
         this.render();
     }
     
