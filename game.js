@@ -4,6 +4,10 @@ const TURN_TIME_SECONDS = 15;
 const CENTER_CONTROL_TURNS_REQUIRED = 3;
 const FREEZE_DURATION = 2;
 const POISON_DURATION = 1;
+const CENTRAL_TILES = [[3, 3], [4, 4]];
+const WHITE_PROTECTED_ZONE = [0, 1];
+const BLACK_PROTECTED_ZONE = [6, 7];
+const QUEEN_MAX_SHOTS = 3;
 
 class FantasyChess {
     constructor() {
@@ -25,9 +29,9 @@ class FantasyChess {
         this.centerControlTurns = { white: 0, black: 0 };
         
         // Special tiles
-        this.centralTiles = [[3, 3], [4, 4]];
-        this.whiteProtectedZone = [0, 1]; // rows 0-1
-        this.blackProtectedZone = [6, 7]; // rows 6-7
+        this.centralTiles = CENTRAL_TILES;
+        this.whiteProtectedZone = WHITE_PROTECTED_ZONE;
+        this.blackProtectedZone = BLACK_PROTECTED_ZONE;
         
         // Status effects
         this.statusEffects = {}; // {position: {type, duration, player}}
@@ -104,7 +108,7 @@ class FantasyChess {
         const descriptions = {
             firewall: 'Creates a wall that prevents movement on the targeted tile.',
             freeze: `Immobilizes an enemy piece for ${FREEZE_DURATION} turns.`,
-            poison: `Disables enemy attacks for ${POISON_DURATION} turn${POISON_DURATION !== 1 ? 's' : ''}.`,
+            poison: `Disables enemy attacks for ${POISON_DURATION} turn.`,
             dispel: 'Removes all status effects from a targeted piece.',
             shield: 'Protects an allied piece from one attack.',
             transform: 'Transforms an enemy piece into a friendly piece.'
@@ -858,7 +862,7 @@ class Queen extends Piece {
     
     getShootTargets(board, row, col) {
         // Queen can shoot in straight lines
-        return this.getPossibleAttacks(board, row, col).slice(0, 3);
+        return this.getPossibleAttacks(board, row, col).slice(0, QUEEN_MAX_SHOTS);
     }
 }
 
