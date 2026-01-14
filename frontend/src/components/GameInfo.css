@@ -1,0 +1,129 @@
+.game-info {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  min-width: 300px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.turn-indicator {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.turn-indicator h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.turn-color {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 6px;
+  margin-left: 10px;
+}
+
+.turn-color.white {
+  background: #fff;
+  color: #000;
+}
+
+.turn-color.black {
+  background: #333;
+  color: #fff;
+}
+
+.your-turn {
+  background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  animation: glow 1.5s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+  }
+}
+
+.player-info, .spell-status {
+  margin-bottom: 15px;
+}
+
+.info-item {
+  margin: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-color {
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+.player-color.white {
+  background: #fff;
+  color: #000;
+}
+
+.player-color.black {
+  background: #333;
+  color: #fff;
+}
+
+.spell-available {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+.spell-used {
+  color: #ff4444;
+  font-weight: bold;
+}
+
+.winner-announcement {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #000;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.active-spells {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.active-spells h3 {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+.active-spell {
+  background: rgba(138, 43, 226, 0.3);
+  padding: 8px;
+  border-radius: 4px;
+  margin: 5px 0;
+  font-size: 0.9em;
+}
