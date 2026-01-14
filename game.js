@@ -24,8 +24,6 @@ class FantasyChess {
         this.gameState = 'playing';
         
         // Win condition tracking
-        this.whiteCenterControl = 0;
-        this.blackCenterControl = 0;
         this.centerControlTurns = { white: 0, black: 0 };
         
         // Special tiles
