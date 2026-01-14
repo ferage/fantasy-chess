@@ -130,7 +130,7 @@ class SpellSystem {
       // Add freeze status to piece
       if (target.piece) {
         target.piece.frozen = true;
-        target.piece.frozenTurns = effect.duration || 2;
+        target.piece.frozenTurns = spell.getDuration();
       }
     } else if (spell.type === SpellTypes.POISON) {
       // Add poison status to piece

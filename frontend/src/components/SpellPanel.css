@@ -26,6 +26,43 @@
   border: 1px solid rgba(255, 68, 68, 0.5);
 }
 
+.spell-notification {
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 15px;
+  animation: slideIn 0.3s ease;
+}
+
+.spell-notification.warning {
+  background: rgba(255, 165, 0, 0.3);
+  color: #fff;
+  border: 1px solid rgba(255, 165, 0, 0.5);
+}
+
+.spell-notification.info {
+  background: rgba(0, 191, 255, 0.3);
+  color: #fff;
+  border: 1px solid rgba(0, 191, 255, 0.5);
+}
+
+.spell-notification.error {
+  background: rgba(255, 68, 68, 0.3);
+  color: #fff;
+  border: 1px solid rgba(255, 68, 68, 0.5);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .targeting-mode {
   background: rgba(0, 255, 136, 0.3);
   padding: 15px;

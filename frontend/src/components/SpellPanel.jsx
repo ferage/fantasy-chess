@@ -4,8 +4,14 @@ import './SpellPanel.css';
 const SpellPanel = ({ gameState, onCastSpell }) => {
   const [selectedSpell, setSelectedSpell] = useState(null);
   const [targetMode, setTargetMode] = useState(false);
+  const [notification, setNotification] = useState(null);
 
   if (!gameState) return null;
+
+  const showNotification = (message, type = 'info') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
 
   const spells = [
     {
@@ -47,7 +53,7 @@ const SpellPanel = ({ gameState, onCastSpell }) => {
 
   const handleSpellClick = (spell) => {
     if (gameState.spellCastThisTurn) {
-      alert('You have already cast a spell this turn!');
+      showNotification('You have already cast a spell this turn!', 'warning');
       return;
     }
     
@@ -59,7 +65,7 @@ const SpellPanel = ({ gameState, onCastSpell }) => {
     if (!targetMode || !selectedSpell) return;
 
     // This is a simplified version - in production, would integrate with board component
-    alert(`Spell targeting is simplified in this version. Click a board tile after selecting a spell.`);
+    showNotification(`Click a board tile to target ${selectedSpell.name}`, 'info');
     
     // Example: onCastSpell(selectedSpell.type, targetX, targetY);
     setSelectedSpell(null);
@@ -69,6 +75,12 @@ const SpellPanel = ({ gameState, onCastSpell }) => {
   return (
     <div className="spell-panel">
       <h3>Magic Spells</h3>
+      
+      {notification && (
+        <div className={`spell-notification ${notification.type}`}>
+          {notification.message}
+        </div>
+      )}
       
       {gameState.spellCastThisTurn && (
         <div className="spell-warning">
