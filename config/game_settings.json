@@ -1,0 +1,39 @@
+{
+  "game": {
+    "name": "Fantasy Chess",
+    "version": "0.1.0",
+    "mode": "standard"
+  },
+  "rules": {
+    "time_control": {
+      "enabled": false,
+      "minutes_per_player": 15,
+      "increment_seconds": 10
+    },
+    "fantasy_mode": {
+      "enabled": true,
+      "portals": true,
+      "special_squares": true,
+      "special_abilities": true
+    },
+    "draw_conditions": {
+      "fifty_move_rule": true,
+      "threefold_repetition": true,
+      "insufficient_material": true
+    }
+  },
+  "scoring": {
+    "capture_points": {
+      "pawn": 1,
+      "knight": 3,
+      "bishop": 3,
+      "rook": 5,
+      "queen": 9
+    },
+    "bonus_points": {
+      "checkmate": 10,
+      "portal_use": 1,
+      "special_ability_use": 2
+    }
+  }
+}

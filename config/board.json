@@ -1,0 +1,29 @@
+{
+  "board": {
+    "size": 8,
+    "style": "standard"
+  },
+  "portals": [
+    {
+      "id": 1,
+      "entry": {"row": 4, "col": 3},
+      "exit": {"row": 2, "col": 5},
+      "active": true,
+      "cooldown": 0
+    }
+  ],
+  "special_squares": [
+    {
+      "position": {"row": 3, "col": 3},
+      "type": "power_boost",
+      "effect": "Next move can capture any piece regardless of rules",
+      "duration": 1
+    },
+    {
+      "position": {"row": 4, "col": 4},
+      "type": "freeze",
+      "effect": "Piece landing here cannot move next turn",
+      "duration": 1
+    }
+  ]
+}
