@@ -78,6 +78,8 @@ if (notation === 'a8' && position.row === 4 && position.col === 4) {
   console.log('✓ Utility functions working');
 } else {
   console.log('✗ Utility functions failed');
+  console.log(`  Expected: a8 and {row: 4, col: 4}`);
+  console.log(`  Got: ${notation} and {row: ${position.row}, col: ${position.col}}`);
   process.exit(1);
 }
 
