@@ -1,0 +1,159 @@
+.board-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.board {
+  display: inline-block;
+  border: 4px solid #8B4513;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #4a3728;
+}
+
+.board-row {
+  display: flex;
+}
+
+.tile {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tile:hover {
+  filter: brightness(1.1);
+}
+
+.tile.light {
+  background: #d4a574;
+}
+
+.tile.dark {
+  background: #8b6f47;
+}
+
+.tile.protected-light {
+  background: #c0c0c0;
+}
+
+.tile.protected-dark {
+  background: #808080;
+}
+
+.tile.objective {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.tile.selected {
+  box-shadow: inset 0 0 0 4px #ffd700;
+  filter: brightness(1.2);
+}
+
+.tile.valid-move {
+  background-color: rgba(0, 255, 0, 0.3) !important;
+  cursor: pointer;
+}
+
+.tile.valid-move::after {
+  content: '●';
+  color: #00ff00;
+  font-size: 24px;
+  position: absolute;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.tile.valid-attack {
+  background-color: rgba(255, 0, 0, 0.3) !important;
+  cursor: pointer;
+}
+
+.tile.valid-attack::after {
+  content: '⚔️';
+  font-size: 24px;
+  position: absolute;
+}
+
+.tile.valid-shoot {
+  background-color: rgba(128, 0, 128, 0.3) !important;
+  cursor: pointer;
+}
+
+.tile.valid-shoot::after {
+  content: '🎯';
+  font-size: 24px;
+  position: absolute;
+}
+
+.piece {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.piece.white {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.piece.black {
+  filter: grayscale(0.3) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.piece-symbol {
+  font-size: 48px;
+  user-select: none;
+}
+
+.status-icon {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tile-effect {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  font-size: 16px;
+}

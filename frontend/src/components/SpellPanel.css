@@ -1,0 +1,113 @@
+.spell-panel {
+  background: rgba(138, 43, 226, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  min-width: 350px;
+  max-width: 400px;
+  box-shadow: 0 4px 16px rgba(138, 43, 226, 0.3);
+  border: 2px solid rgba(138, 43, 226, 0.4);
+}
+
+.spell-panel h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #e0b0ff;
+}
+
+.spell-warning {
+  background: rgba(255, 68, 68, 0.3);
+  color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255, 68, 68, 0.5);
+}
+
+.targeting-mode {
+  background: rgba(0, 255, 136, 0.3);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  border: 2px solid rgba(0, 255, 136, 0.5);
+}
+
+.targeting-mode button {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.spells-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.spell-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(138, 43, 226, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.spell-card:hover:not(.disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
+  border-color: rgba(138, 43, 226, 0.6);
+}
+
+.spell-card.selected {
+  border-color: #e0b0ff;
+  background: rgba(224, 176, 255, 0.2);
+}
+
+.spell-card.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.spell-icon {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.spell-name {
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 8px;
+  color: #e0b0ff;
+}
+
+.spell-description {
+  font-size: 0.85em;
+  text-align: center;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.spell-target {
+  font-size: 0.75em;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+}
+
+.spell-info {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.85em;
+}
+
+.spell-info p {
+  margin: 5px 0;
+}
