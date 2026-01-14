@@ -1,0 +1,14 @@
+# Placeholder for sound files
+
+This directory should contain sound effect files.
+
+Required sounds:
+- move.wav
+- capture.wav
+- check.wav
+- checkmate.wav
+
+Optional sounds:
+- portal.wav
+- special_ability.wav
+- background_music.mp3
