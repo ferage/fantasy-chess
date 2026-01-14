@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Chess</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="game-header">
+            <h1>Fantasy Chess</h1>
+            <div class="game-info">
+                <div class="player-info">
+                    <span id="currentPlayer">White's Turn</span>
+                    <span id="timer">Time: 15s</span>
+                </div>
+                <div class="game-status">
+                    <span id="gameStatus">Select a piece to move</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-container">
+            <div class="spell-panel">
+                <h3>Spells</h3>
+                <div class="spell-buttons">
+                    <button class="spell-btn" data-spell="firewall">Fire Wall</button>
+                    <button class="spell-btn" data-spell="freeze">Freeze</button>
+                    <button class="spell-btn" data-spell="poison">Poison</button>
+                    <button class="spell-btn" data-spell="dispel">Dispel</button>
+                    <button class="spell-btn" data-spell="shield">Shield</button>
+                    <button class="spell-btn" data-spell="transform">Transform</button>
+                </div>
+                <div class="spell-info">
+                    <p id="spellDescription">Select a spell to see its description</p>
+                </div>
+            </div>
+            
+            <div class="board-container">
+                <canvas id="gameBoard" width="640" height="640"></canvas>
+            </div>
+            
+            <div class="control-panel">
+                <h3>Game Controls</h3>
+                <button id="newGameBtn" class="control-btn">New Game</button>
+                <button id="undoBtn" class="control-btn">Undo Move</button>
+                
+                <h3>Game Mode</h3>
+                <select id="gameMode" class="control-select">
+                    <option value="local">Local 2 Player</option>
+                    <option value="ai-easy">AI - Easy</option>
+                    <option value="ai-medium">AI - Medium</option>
+                    <option value="ai-hard">AI - Hard</option>
+                    <option value="online">Online Multiplayer</option>
+                </select>
+                
+                <div class="stats">
+                    <h3>Win Conditions</h3>
+                    <ul>
+                        <li>Control center tiles for 3 turns</li>
+                        <li>Reach opponent's protected zone</li>
+                        <li>Eliminate opponent's King</li>
+                    </ul>
+                    <div id="centralControl">
+                        <p>White Center Control: <span id="whiteCenterTurns">0</span>/3</p>
+                        <p>Black Center Control: <span id="blackCenterTurns">0</span>/3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>

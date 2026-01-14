@@ -1,0 +1,208 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    max-width: 1400px;
+    width: 100%;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.game-header h1 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.player-info, .game-status {
+    display: flex;
+    gap: 20px;
+}
+
+.player-info span, .game-status span {
+    font-weight: bold;
+    color: #555;
+}
+
+#timer {
+    color: #e74c3c;
+}
+
+.game-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.spell-panel, .control-panel {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+}
+
+.spell-panel h3, .control-panel h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.spell-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.spell-btn {
+    padding: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.spell-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.spell-btn:active {
+    transform: translateY(0);
+}
+
+.spell-btn.selected {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    box-shadow: 0 0 20px rgba(245, 87, 108, 0.6);
+}
+
+.spell-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.spell-info {
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    min-height: 100px;
+}
+
+.spell-info p {
+    color: #666;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.board-container {
+    position: relative;
+}
+
+#gameBoard {
+    border: 3px solid #333;
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.control-btn {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.control-btn:hover {
+    background: #2980b9;
+}
+
+.control-select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.stats {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #ddd;
+}
+
+.stats h3 {
+    margin-bottom: 10px;
+}
+
+.stats ul {
+    list-style-position: inside;
+    color: #666;
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+#centralControl {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+#centralControl p {
+    margin: 5px 0;
+    color: #555;
+}
+
+@media (max-width: 1200px) {
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .spell-panel, .control-panel {
+        width: 100%;
+        max-width: 640px;
+    }
+}
