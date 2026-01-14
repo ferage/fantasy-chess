@@ -370,18 +370,20 @@ class FantasyChess {
             return;
         }
         
-        // Check protected zone reach
+        // Check protected zone reach (must have moved to reach)
         for (let col = 0; col < 8; col++) {
             for (let row of this.blackProtectedZone) {
                 const piece = this.board[row][col];
-                if (piece && piece.color === 'white' && piece.type !== 'Pawn') {
+                // White piece reaching black's protected zone (rows 6-7)
+                if (piece && piece.color === 'white' && piece.type !== 'Pawn' && piece.hasMoved) {
                     this.endGame('White wins by reaching the protected zone!');
                     return;
                 }
             }
             for (let row of this.whiteProtectedZone) {
                 const piece = this.board[row][col];
-                if (piece && piece.color === 'black' && piece.type !== 'Pawn') {
+                // Black piece reaching white's protected zone (rows 0-1)
+                if (piece && piece.color === 'black' && piece.type !== 'Pawn' && piece.hasMoved) {
                     this.endGame('Black wins by reaching the protected zone!');
                     return;
                 }
