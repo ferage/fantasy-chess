@@ -1,4 +1,10 @@
 // Fantasy Chess Game Engine
+// Constants
+const TURN_TIME_SECONDS = 15;
+const CENTER_CONTROL_TURNS_REQUIRED = 3;
+const FREEZE_DURATION = 2;
+const POISON_DURATION = 1;
+
 class FantasyChess {
     constructor() {
         this.canvas = document.getElementById('gameBoard');
@@ -9,7 +15,7 @@ class FantasyChess {
         this.selectedPiece = null;
         this.selectedSpell = null;
         this.gameMode = 'local';
-        this.turnTime = 15;
+        this.turnTime = TURN_TIME_SECONDS;
         this.turnTimer = null;
         this.gameState = 'playing';
         
@@ -97,8 +103,8 @@ class FantasyChess {
     showSpellDescription(spell) {
         const descriptions = {
             firewall: 'Creates a wall that prevents movement on the targeted tile.',
-            freeze: 'Immobilizes an enemy piece until assisted by an ally.',
-            poison: 'Disables enemy attacks until their next move.',
+            freeze: `Immobilizes an enemy piece for ${FREEZE_DURATION} turns.`,
+            poison: `Disables enemy attacks for ${POISON_DURATION} turn.`,
             dispel: 'Removes all status effects from a targeted piece.',
             shield: 'Protects an allied piece from one attack.',
             transform: 'Transforms an enemy piece into a friendly piece.'
@@ -120,9 +126,8 @@ class FantasyChess {
         } else {
             this.selectedSpell = spell;
             e.target.classList.add('selected');
+            this.updateGameStatus(`Spell ${spell} selected. Click a tile to cast.`);
         }
-        
-        this.updateGameStatus(`Spell ${spell} selected. Click a tile to cast.`);
     }
     
     handleClick(e) {
@@ -174,6 +179,18 @@ class FantasyChess {
         const attacks = piece.getPossibleAttacks(this.board, row, col);
         const shoots = piece.canShoot ? piece.getShootTargets(this.board, row, col) : [];
         
+        // Check if piece is poisoned and trying to attack
+        const pieceKey = `${row},${col}`;
+        if (this.statusEffects[pieceKey]?.type === 'poison') {
+            if (attacks.some(m => m[0] === targetRow && m[1] === targetCol) || 
+                shoots.some(m => m[0] === targetRow && m[1] === targetCol)) {
+                this.updateGameStatus('This piece is poisoned and cannot attack!');
+                this.selectedPiece = null;
+                this.render();
+                return;
+            }
+        }
+        
         // Check if target is a firewall
         if (this.fireWalls.some(pos => pos[0] === targetRow && pos[1] === targetCol)) {
             this.updateGameStatus('Cannot move to a fire wall tile!');
@@ -192,6 +209,18 @@ class FantasyChess {
         }
         
         if (moveType) {
+            // Check shield before capturing
+            const targetKey = `${targetRow},${targetCol}`;
+            if (moveType === 'attack' || moveType === 'shoot') {
+                if (this.shields[targetKey]) {
+                    delete this.shields[targetKey];
+                    this.updateGameStatus('Attack blocked by shield!');
+                    this.selectedPiece = null;
+                    this.render();
+                    return;
+                }
+            }
+            
             // Save move for undo
             this.moveHistory.push({
                 from: [row, col],
@@ -242,14 +271,14 @@ class FantasyChess {
                 
             case 'freeze':
                 if (targetPiece && targetPiece.color !== this.currentPlayer) {
-                    this.statusEffects[key] = { type: 'freeze', duration: 2, player: this.currentPlayer };
+                    this.statusEffects[key] = { type: 'freeze', duration: FREEZE_DURATION, player: this.currentPlayer };
                     this.updateGameStatus(`Enemy ${targetPiece.type} frozen!`);
                 }
                 break;
                 
             case 'poison':
                 if (targetPiece && targetPiece.color !== this.currentPlayer) {
-                    this.statusEffects[key] = { type: 'poison', duration: 1, player: this.currentPlayer };
+                    this.statusEffects[key] = { type: 'poison', duration: POISON_DURATION, player: this.currentPlayer };
                     this.updateGameStatus(`Enemy ${targetPiece.type} poisoned!`);
                 }
                 break;
@@ -332,11 +361,11 @@ class FantasyChess {
         document.getElementById('whiteCenterTurns').textContent = this.centerControlTurns.white;
         document.getElementById('blackCenterTurns').textContent = this.centerControlTurns.black;
         
-        if (this.centerControlTurns.white >= 3) {
+        if (this.centerControlTurns.white >= CENTER_CONTROL_TURNS_REQUIRED) {
             this.endGame('White wins by controlling the center!');
             return;
         }
-        if (this.centerControlTurns.black >= 3) {
+        if (this.centerControlTurns.black >= CENTER_CONTROL_TURNS_REQUIRED) {
             this.endGame('Black wins by controlling the center!');
             return;
         }
@@ -457,7 +486,7 @@ class FantasyChess {
     
     resetTurnTimer() {
         if (this.turnTimer) clearInterval(this.turnTimer);
-        this.turnTime = 15;
+        this.turnTime = TURN_TIME_SECONDS;
         this.updateTimer();
         
         this.turnTimer = setInterval(() => {
@@ -465,12 +494,8 @@ class FantasyChess {
             this.updateTimer();
             
             if (this.turnTime <= 0) {
-                // Auto-pass or AI move on timeout
-                if (this.gameMode.startsWith('ai-') && this.currentPlayer === 'white') {
-                    this.nextTurn();
-                } else {
-                    this.nextTurn();
-                }
+                // Auto-pass turn on timeout
+                this.nextTurn();
             }
         }, 1000);
     }
