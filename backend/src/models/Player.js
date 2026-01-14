@@ -6,14 +6,12 @@ const playerSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
     minlength: 3
   },
   email: {
     type: String,
     required: true,
-    unique: true,
     lowercase: true,
     trim: true
   },
@@ -53,7 +51,8 @@ const playerSchema = new mongoose.Schema({
 
 // Add indexes
 playerSchema.index({ rating: -1 });
-playerSchema.index({ username: 1 });
+playerSchema.index({ username: 1 }, { unique: true });
+playerSchema.index({ email: 1 }, { unique: true });
 
 // Methods
 playerSchema.methods.updateStats = function(result) {

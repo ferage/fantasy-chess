@@ -5,8 +5,7 @@ const mongoose = require('mongoose');
 const gameMatchSchema = new mongoose.Schema({
   gameId: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   whitePlayer: {
     type: mongoose.Schema.Types.ObjectId,
@@ -60,7 +59,7 @@ const gameMatchSchema = new mongoose.Schema({
 });
 
 // Add indexes
-gameMatchSchema.index({ gameId: 1 });
+gameMatchSchema.index({ gameId: 1 }, { unique: true });
 gameMatchSchema.index({ whitePlayer: 1 });
 gameMatchSchema.index({ blackPlayer: 1 });
 gameMatchSchema.index({ status: 1 });
