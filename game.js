@@ -206,7 +206,7 @@ class FantasyChess {
             moveType = 'move';
         } else if (attacks.some(m => m[0] === targetRow && m[1] === targetCol)) {
             moveType = 'attack';
-        } else if (!piece.hasShot && shoots.some(m => m[0] === targetRow && m[1] === targetCol)) {
+        } else if (piece.canShoot && !piece.hasShot && shoots.some(m => m[0] === targetRow && m[1] === targetCol)) {
             moveType = 'shoot';
         }
         
@@ -462,9 +462,10 @@ class FantasyChess {
             // No valid moves - pass turn without recursion
             this.selectedPiece = null;
             this.updateGameStatus('AI has no valid moves. Turn passed.');
-            // Switch turn manually without calling nextTurn to avoid recursion
-            this.currentPlayer = 'white';
-            document.getElementById('currentPlayer').textContent = 'White\'s Turn';
+            // Switch turn without calling nextTurn to avoid recursion
+            this.currentPlayer = this.currentPlayer === 'white' ? 'black' : 'white';
+            document.getElementById('currentPlayer').textContent = 
+                `${this.currentPlayer.charAt(0).toUpperCase() + this.currentPlayer.slice(1)}'s Turn`;
             this.resetTurnTimer();
             this.render();
             return;
