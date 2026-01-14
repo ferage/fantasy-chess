@@ -104,7 +104,7 @@ class FantasyChess {
         const descriptions = {
             firewall: 'Creates a wall that prevents movement on the targeted tile.',
             freeze: `Immobilizes an enemy piece for ${FREEZE_DURATION} turns.`,
-            poison: `Disables enemy attacks for ${POISON_DURATION} turn.`,
+            poison: `Disables enemy attacks for ${POISON_DURATION} turn${POISON_DURATION !== 1 ? 's' : ''}.`,
             dispel: 'Removes all status effects from a targeted piece.',
             shield: 'Protects an allied piece from one attack.',
             transform: 'Transforms an enemy piece into a friendly piece.'
