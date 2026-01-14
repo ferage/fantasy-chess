@@ -71,15 +71,17 @@ if (moveResult.success && game.currentPlayer === 'black') {
 console.log('\n🔧 Testing Utilities...');
 const utils = require('./src/utils/utils.js');
 
+// Test position to notation: (0,0) should be 'a8'
 const notation = utils.positionToNotation(0, 0);
+// Test notation to position: 'e4' should be {row: 4, col: 4}
 const position = utils.notationToPosition('e4');
 
 if (notation === 'a8' && position.row === 4 && position.col === 4) {
   console.log('✓ Utility functions working');
 } else {
   console.log('✗ Utility functions failed');
-  console.log(`  Expected: a8 and {row: 4, col: 4}`);
-  console.log(`  Got: ${notation} and {row: ${position.row}, col: ${position.col}}`);
+  console.log(`  Expected: notation='a8', position={row: 4, col: 4}`);
+  console.log(`  Got: notation='${notation}', position={row: ${position.row}, col: ${position.col}}`);
   process.exit(1);
 }
 
