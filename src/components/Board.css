@@ -1,0 +1,173 @@
+.board-container {
+  position: relative;
+  display: inline-block;
+}
+
+.board {
+  display: inline-block;
+  border: 3px solid #8b4513;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.board-row {
+  display: flex;
+}
+
+.animation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.projectile {
+  position: absolute;
+  animation: shoot 1s ease-out forwards;
+}
+
+@keyframes shoot {
+  0% {
+    left: var(--start-x);
+    top: var(--start-y);
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--angle));
+  }
+  100% {
+    left: var(--end-x);
+    top: var(--end-y);
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--angle)) scale(0.5);
+  }
+}
+
+/* Pawn - Bomb trajectory with arc */
+.projectile-pawn {
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #ff4444, #aa0000);
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ff4444, 0 0 20px #ff0000;
+  animation: shoot-bomb 1s ease-out forwards;
+}
+
+@keyframes shoot-bomb {
+  0% {
+    left: var(--start-x);
+    top: var(--start-y);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -150%) scale(1.2);
+  }
+  100% {
+    left: var(--end-x);
+    top: var(--end-y);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+}
+
+/* Bishop - Arrow */
+.projectile-bishop {
+  width: 30px;
+  height: 4px;
+  background: linear-gradient(to right, #8b4513 0%, #d2691e 50%, #8b4513 100%);
+  box-shadow: 0 0 5px rgba(210, 105, 30, 0.5);
+}
+
+.projectile-bishop::before {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid #8b4513;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+
+/* King - Light beam */
+.projectile-king {
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #ffff00, #ffaa00);
+  box-shadow: 0 0 15px #ffff00, 0 0 30px #ffaa00, 0 0 45px #ff8800;
+  border-radius: 50%;
+  animation: shoot-beam 1s ease-out forwards;
+}
+
+@keyframes shoot-beam {
+  0% {
+    left: var(--start-x);
+    top: var(--start-y);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 15px #ffff00, 0 0 30px #ffaa00, 0 0 45px #ff8800;
+  }
+  100% {
+    left: var(--end-x);
+    top: var(--end-y);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3);
+    box-shadow: 0 0 30px #ffff00, 0 0 60px #ffaa00, 0 0 90px #ff8800;
+  }
+}
+
+/* Hobbit - Sling projectile */
+.projectile-hobbit {
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle, #666, #333);
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  animation: shoot-sling 1s ease-out forwards;
+}
+
+@keyframes shoot-sling {
+  0% {
+    left: var(--start-x);
+    top: var(--start-y);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-50%, -100%) scale(1.1) rotate(360deg);
+  }
+  100% {
+    left: var(--end-x);
+    top: var(--end-y);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) rotate(720deg);
+  }
+}
+
+/* Dwarf - Axe throw */
+.projectile-dwarf {
+  width: 25px;
+  height: 25px;
+  background: linear-gradient(135deg, #4a4a4a 0%, #2a2a2a 50%, #4a4a4a 100%);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  box-shadow: 0 0 8px rgba(128, 128, 128, 0.5);
+  animation: shoot-axe 1s ease-out forwards;
+}
+
+@keyframes shoot-axe {
+  0% {
+    left: var(--start-x);
+    top: var(--start-y);
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  100% {
+    left: var(--end-x);
+    top: var(--end-y);
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(720deg) scale(0.5);
+  }
+}
