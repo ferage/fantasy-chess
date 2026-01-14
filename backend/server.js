@@ -5,6 +5,7 @@ const http = require('http');
 const socketIO = require('socket.io');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const GameState = require('./src/game/gameState');
@@ -20,6 +21,19 @@ const io = socketIO(server, {
     origin: process.env.FRONTEND_URL || 'http://localhost:3000',
     methods: ['GET', 'POST']
   }
+});
+
+// Rate limiting configuration
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.'
+});
+
+const authLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5, // Limit each IP to 5 registration attempts per hour
+  message: 'Too many accounts created from this IP, please try again after an hour.'
 });
 
 // Middleware
@@ -42,7 +56,7 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Fantasy Chess server is running' });
 });
 
-app.get('/api/leaderboard', async (req, res) => {
+app.get('/api/leaderboard', apiLimiter, async (req, res) => {
   try {
     const players = await Player.find()
       .sort({ rating: -1 })
@@ -54,7 +68,7 @@ app.get('/api/leaderboard', async (req, res) => {
   }
 });
 
-app.post('/api/player/register', async (req, res) => {
+app.post('/api/player/register', authLimiter, async (req, res) => {
   try {
     const { username, email, password } = req.body;
     
@@ -74,7 +88,7 @@ app.post('/api/player/register', async (req, res) => {
   }
 });
 
-app.get('/api/player/:playerId/stats', async (req, res) => {
+app.get('/api/player/:playerId/stats', apiLimiter, async (req, res) => {
   try {
     const player = await Player.findById(req.params.playerId).select('-passwordHash');
     if (!player) {
